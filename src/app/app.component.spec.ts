@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-firestore'`, () => {
+  it(`should have as title 'angular-desafio'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-firestore');
+    expect(app.title).toEqual('angular-desafio');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-firestore app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-desafio app is running!');
   });
 });

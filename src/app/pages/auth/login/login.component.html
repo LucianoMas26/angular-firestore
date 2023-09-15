@@ -1,0 +1,79 @@
+<div class="flex justify-center items-center h-screen">
+  <div
+    class="flex w-[768px] h-[496px] mt-[5rem] animate-fade animate-once animate-duration-700 animate-delay-100 animate-ease-linear"
+  >
+    <form
+      [formGroup]="form"
+      (ngSubmit)="logIn()"
+      class="w-1/2 bg-gray-100 p-8 flex flex-col text-center justify-center items-center rounded-l-xl shadow-[0_35px_35px_rgba(0,0,0,0.25)]"
+    >
+      <h2 class="text-3xl font-black mb-6">Inicia sesión</h2>
+      <app-button-providers />
+      <div class="gap-2 flex mt-4">
+        <div>
+          <div>
+            <input
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+              matInput
+              formControlName="email"
+              placeholder="Correo"
+              required
+            />
+            <mat-error></mat-error>
+          </div>
+          <div class="mt-4">
+            <input
+              matInput
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+              type="password"
+              placeholder="Contraseña"
+              formControlName="password"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="space-y-4 mt-4 flex flex-col justify-center text-center">
+        <div>
+          <button
+            class="bg-[#FF416C] min-w-[9rem] max-w-[9rem] duration-200 font-bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline text-white"
+            type="submit"
+          >
+            Ingresar
+          </button>
+        </div>
+
+        <div
+          class="mt-4 text-[#333] leading-[20px] tracking-[0.5px] text-[14px]"
+        >
+          ¿Todavía no tienes una cuenta?
+        </div>
+
+        <div>
+          <button
+            class="min-w-[9rem] max-w-[9rem] bg-[#FF416C] p-[1px] duration-200 rounded-[20px]"
+          >
+            <div
+              class="bg-white hover:bg-slate-100 duration-200 font-semibold h-full w-full px-4 py-2 rounded-[20px]"
+            >
+              <a routerLink="/auth/register">Registrarse</a>
+            </div>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="w-1/2 relative">
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-[90%] z-10"
+      >
+        <h1 class="text-3xl font-black">Bienvenido/a</h1>
+        <p class="leading-[20px] tracking-[0.5px] text-[14px] my-[20px]">
+          Ingrese su usuario y contraseña para continuar
+        </p>
+      </div>
+      <div
+        class="h-full w-full object-cover rounded-r-xl shadow-[0_35px_35px_rgba(0,0,0,0.25)] brightness-75 bg-[#FF416C]"
+      ></div>
+    </div>
+  </div>
+</div>
