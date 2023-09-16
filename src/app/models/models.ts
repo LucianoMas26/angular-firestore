@@ -25,3 +25,10 @@ export interface User {
   email: string;
   password: string;
 }
+
+export interface UserForm {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+}

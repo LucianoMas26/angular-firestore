@@ -1,48 +1,55 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import {
+  collection,
+  Firestore,
+  collectionData,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  constructor(private fireauth: AngularFireAuth, private router: Router) {}
-  login(email: string, password: string) {
-    this.fireauth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        localStorage.setItem('token', 'true');
-        this.router.navigate(['./dashboard']);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        this.router.navigate(['/login']);
-      });
+export class UserService {
+  constructor(private firestore: Firestore) {
+    this.getData();
   }
 
-  register(email: string, password: string) {
-    this.fireauth
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('user created');
-        this.router.navigate(['./login']);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        this.router.navigate(['/register']);
-      });
+  userData!: Observable<any>;
+
+  getData() {
+    const collectionInstance = collection(this.firestore, 'users');
+    collectionData(collectionInstance, { idField: 'id' }).subscribe((value) => {
+      {
+        console.log(value);
+      }
+    });
+    this.userData = collectionData(collectionInstance, { idField: 'id' });
   }
 
-  signOut() {
-    this.fireauth
-      .signOut()
+  deleteData(id: string) {
+    const docInstance = doc(this.firestore, 'users', id);
+    deleteDoc(docInstance)
       .then(() => {
-        localStorage.removeItem('token');
-        this.router.navigate(['/login']);
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario eliminado',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((error) => {
-        console.log(error.message);
-        this.router.navigate(['/login']);
+        {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Parece que algo salió mal!',
+          });
+          console.log(error);
+        }
       });
   }
 }

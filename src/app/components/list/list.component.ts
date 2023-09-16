@@ -9,19 +9,21 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css'],
 })
-export class HomeComponent {
+export class ListComponent {
   constructor(private firestore: Firestore) {
     this.getData();
   }
   userData!: Observable<any>;
   private authService = inject(AuthService);
   private _router = inject(Router);
+  private userService = inject(UserService);
 
   async logOut(): Promise<void> {
     try {
@@ -40,5 +42,9 @@ export class HomeComponent {
       }
     });
     this.userData = collectionData(collectionInstance, { idField: 'id' });
+  }
+
+  delete(id: string) {
+    this.userService.deleteData(id);
   }
 }

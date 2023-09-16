@@ -1,0 +1,57 @@
+<div class="bg-[#F9FAFB] h-screen flex items-center">
+  <div class="h-max mx-auto flex flex-col items-center">
+    <h1 class="text-xl font-bold text-center pb-6">Editar Usuario</h1>
+    <form
+      class="bg-white shadow-xl p-10 flex flex-col gap-4 text-sm"
+      [formGroup]="form"
+    >
+      <div>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+          matInput
+          formControlName="name"
+          placeholder="Nombre"
+          required
+        />
+      </div>
+      <div>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+          matInput
+          formControlName="lastName"
+          placeholder="Apellido"
+          required
+        />
+      </div>
+      <div>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+          matInput
+          formControlName="email"
+          placeholder="Correo"
+          required
+        />
+      </div>
+      <div>
+        <input
+          matInput
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
+          type="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          required
+        />
+      </div>
+
+      <div>
+        <button
+          class="bg-[#FF416C] w-full py-2 rounded-md text-white font-bold cursor-pointer hover:bg-[#c7123c]"
+          type="submit"
+          (click)="updateData()"
+        >
+          Editar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -20,6 +20,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { ButtonProvidersComponent } from './components/button-providers/button-providers.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { ListComponent } from './components/list/list.component';
+import { UpdateComponent } from './components/update/update.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { ButtonProvidersComponent } from './components/button-providers/button-p
     MainComponent,
     HomeComponent,
     ButtonProvidersComponent,
+    AddUserComponent,
+    ListComponent,
+    UpdateComponent,
   ],
   imports: [
     BrowserModule,

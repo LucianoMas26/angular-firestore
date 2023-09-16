@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Credential } from 'src/app/models/models';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +17,6 @@ export class LoginComponent {
   formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private _router = inject(Router);
-  private _snackBar = inject(MatSnackBar);
 
   form: FormGroup<LoginForm> = this.formBuilder.group({
     email: this.formBuilder.control('', {
@@ -37,19 +38,21 @@ export class LoginComponent {
 
     try {
       await this.authService.loginWithEmailAndPassword(credential);
-      const snackBarRef = this.openSnackBar();
-      snackBarRef.afterDismissed().subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Bienvenido/a',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
         this._router.navigateByUrl('/');
       });
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Parece que algo salió mal!',
+      });
       console.log(error);
     }
-  }
-  openSnackBar() {
-    return this._snackBar.open('Succesfully Log in', 'Close', {
-      duration: 2500,
-      verticalPosition: 'top',
-      horizontalPosition: 'end',
-    });
   }
 }

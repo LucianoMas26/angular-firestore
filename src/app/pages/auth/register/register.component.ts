@@ -6,6 +6,8 @@ import { Credential } from 'src/app/models/models';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import Swal from 'sweetalert2';
+import { UserForm } from 'src/app/models/models';
 
 @Component({
   selector: 'app-register',
@@ -18,23 +20,11 @@ export class RegisterComponent {
 
   formBuilder = inject(FormBuilder);
 
-  form: FormGroup<SignUpForm> = this.formBuilder.group({
-    name: this.formBuilder.control('', {
-      validators: Validators.required,
-      nonNullable: true,
-    }),
-    lastName: this.formBuilder.control('', {
-      validators: Validators.required,
-      nonNullable: true,
-    }),
-    email: this.formBuilder.control('', {
-      validators: [Validators.required, Validators.email],
-      nonNullable: true,
-    }),
-    password: this.formBuilder.control('', {
-      validators: Validators.required,
-      nonNullable: true,
-    }),
+  form: FormGroup = this.formBuilder.group({
+    name: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   private authService = inject(AuthService);
@@ -51,26 +41,27 @@ export class RegisterComponent {
       const userCredentials = await this.authService.signUpWithEmailAndPassword(
         credential
       );
-      const snackBarRef = this.openSnackBar();
-      snackBarRef.afterDismissed().subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: `Bienvenido/a ${this.form.value.name}`,
+        showConfirmButton: false,
+        timer: 2500,
+      }).then(() => {
         this._router.navigateByUrl('/');
       });
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Parece que algo salió mal!',
+      });
       console.log(error);
     }
-    console.log(this.form.value);
-  }
-  openSnackBar() {
-    return this._snackBar.open('Succesfully Log in', 'Close', {
-      duration: 2500,
-      verticalPosition: 'top',
-      horizontalPosition: 'end',
-    });
   }
 
-  addData(form: any) {
+  addData(form: UserForm) {
     const collectionInstance = collection(this.firestore, 'users');
-    addDoc(collectionInstance, form.value)
+    addDoc(collectionInstance, form)
       .then(() => {
         console.log('Data Saved Succesfully');
       })
