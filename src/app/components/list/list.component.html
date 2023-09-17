@@ -1,4 +1,4 @@
-<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+<div class="overflow-x-auto rounded-lg border border-gray-200 shadow-md m-5">
   <table
     class="w-full border-collapse bg-white text-left text-sm text-gray-500"
   >
@@ -14,24 +14,21 @@
     </thead>
     <tbody
       *ngFor="let data of userData | async"
-      class="divide-y divide-gray-100 border-t border-gray-100"
+      class="border-t border-gray-100"
     >
       <tr class="hover:bg-gray-50">
-        <th class="px-6 py-4 font-normal text-gray-900">
+        <td class="px-6 py-2 sm:py-4 font-normal text-gray-900">
           <div class="text-sm">
             <div class="font-medium text-gray-700">{{ data.name }}</div>
           </div>
-        </th>
-        <td class="px-6 py-4">
+        </td>
+        <td class="px-6 py-2 sm:py-4">
           <div class="text-sm">
-            <div class="font-medium text-gray-700">
-              {{ data.lastName }}
-            </div>
+            <div class="font-medium text-gray-700">{{ data.lastName }}</div>
           </div>
         </td>
-        <td class="px-6 py-4">{{ data.email }}</td>
-
-        <td class="px-6 py-4">
+        <td class="px-6 py-2 sm:py-4">{{ data.email }}</td>
+        <td class="px-6 py-2 sm:py-4">
           <div class="flex justify-end gap-4 text-[#FF416C]">
             <a x-data="{ tooltip: 'Delete' }" (click)="delete(data.id)">
               <svg
@@ -51,7 +48,7 @@
               </svg>
             </a>
             <a
-              x-data="{ tooltip: 'Edite' }"
+              x-data="{ tooltip: 'Editar' }"
               [routerLink]="['/update', data.id]"
             >
               <svg
@@ -70,7 +67,7 @@
                 />
               </svg>
             </a>
-            <a x-data="{ tooltip: 'Edite' }" routerLink="/add-user">
+            <a x-data="{ tooltip: 'Agregar' }" routerLink="/add-user">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

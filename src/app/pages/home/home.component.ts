@@ -1,14 +1,6 @@
-import { Component, inject } from '@angular/core';
-import {
-  collection,
-  Firestore,
-  collectionData,
-  doc,
-  updateDoc,
-} from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { collection, Firestore, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,18 +11,8 @@ export class HomeComponent {
   constructor(private firestore: Firestore) {
     this.getData();
   }
-  userData!: Observable<any>;
-  private authService = inject(AuthService);
-  private _router = inject(Router);
 
-  async logOut(): Promise<void> {
-    try {
-      await this.authService.logOut();
-      this._router.navigateByUrl('/auth/login');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  userData!: Observable<any>;
 
   getData() {
     const collectionInstance = collection(this.firestore, 'users');

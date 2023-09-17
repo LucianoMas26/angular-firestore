@@ -24,6 +24,11 @@ import { AddUserComponent } from './components/add-user/add-user.component';
 import { ListComponent } from './components/list/list.component';
 import { UpdateComponent } from './components/update/update.component';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +40,7 @@ import { UpdateComponent } from './components/update/update.component';
     AddUserComponent,
     ListComponent,
     UpdateComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +57,10 @@ import { UpdateComponent } from './components/update/update.component';
     RouterModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatSidenavModule,
+    MatListModule,
+    FlexLayoutModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

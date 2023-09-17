@@ -1,0 +1,86 @@
+<mat-toolbar class="flex justify-between !bg-[#FF416C] !py-4">
+  <div class="text-xl text-white">Inicio</div>
+  <div class="hidden sm:block">
+    <ul class="flex gap-8 text-xl text-white">
+      <li><a routerLink="/add-user">Agregar</a></li>
+      <li><a routerLink="/list">Lista</a></li>
+    </ul>
+  </div>
+  <button
+    class="bg-white hidden sm:block px-4 py-2 rounded-lg"
+    (click)="logOut()"
+  >
+    Cerrar sesion
+  </button>
+  <button
+    type="button"
+    class="relative sm:hidden inline-flex items-center justify-center rounded-md p-2 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+    (click)="toggleMobileNav()"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+  >
+    <span class="absolute -inset-0.5"></span>
+    <span class="sr-only">Open main menu</span>
+    <!--
+      Icon when menu is closed.
+
+      Menu open: "hidden", Menu closed: "block"
+    -->
+    <svg
+      class="block h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+      />
+    </svg>
+    <!--
+      Icon when menu is open.
+
+      Menu open: "block", Menu closed: "hidden"
+    -->
+    <svg
+      class="hidden h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+</mat-toolbar>
+<nav class="bg-[#FF416C]" *ngIf="isMobileNavVisible">
+  <div class="sm:hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pb-3 pt-2">
+      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+      <a
+        class="text-white block rounded-md px-3 py-2 text-base font-medium"
+        routerLink="/add-user"
+        >Agregar</a
+      >
+      <a
+        class="text-white block rounded-md px-3 py-2 text-base font-medium"
+        routerLink="/list"
+        >Lista</a
+      >
+      <button
+        class="text-white block rounded-md px-3 py-2 text-base font-medium"
+        (click)="logOut()"
+      >
+        Cerrar sesion
+      </button>
+    </div>
+  </div>
+</nav>
