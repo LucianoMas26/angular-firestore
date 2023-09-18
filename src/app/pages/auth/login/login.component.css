@@ -4,3 +4,8 @@
 .input-error::placeholder {
   color: rgb(233, 73, 73);
 }
+.disabled-button {
+  background-color: rgb(168, 166, 166);
+  color: white;
+  cursor: not-allowed;
+}

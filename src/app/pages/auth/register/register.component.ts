@@ -28,6 +28,7 @@ export class RegisterComponent {
   placeholderName: string = 'Nombre';
   placeholderLastname: string = 'Apellido';
   formBuilder = inject(FormBuilder);
+  formValid = false;
 
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -38,6 +39,12 @@ export class RegisterComponent {
       [Validators.required, Validators.minLength(8), Validators.maxLength(20)],
     ],
   });
+
+  ngOnInit() {
+    this.form.statusChanges.subscribe((status) => {
+      this.formValid = status === 'VALID';
+    });
+  }
 
   async signUp(): Promise<void> {
     if (this.form.invalid) {

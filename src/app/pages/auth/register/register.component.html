@@ -89,8 +89,10 @@
           <button
             class="bg-[#FF416C] min-w-[9rem] max-w-[9rem] duration-200 font-bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline text-white"
             type="submit"
+            [disabled]="!formValid"
+            [ngClass]="{ 'disabled-button': !formValid }"
           >
-            Registrar
+            Registrarse
           </button>
         </div>
 

@@ -19,6 +19,7 @@ export class LoginComponent {
   formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private _router = inject(Router);
+  formValid = false;
 
   form: FormGroup<LoginForm> = this.formBuilder.group({
     email: this.formBuilder.control('', {
@@ -30,6 +31,12 @@ export class LoginComponent {
       nonNullable: true,
     }),
   });
+
+  ngOnInit() {
+    this.form.statusChanges.subscribe((status) => {
+      this.formValid = status === 'VALID';
+    });
+  }
 
   async logIn(): Promise<void> {
     if (this.form.invalid) {
