@@ -5,7 +5,7 @@
   color: rgb(233, 73, 73);
 }
 .disabled-button {
-  background-color: rgb(168, 166, 166);
+  background-color: #b42c4c;
   color: white;
   cursor: not-allowed;
 }
