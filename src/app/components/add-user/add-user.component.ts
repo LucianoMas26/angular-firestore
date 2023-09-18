@@ -13,16 +13,28 @@ import { UserForm } from 'src/app/models/models';
 export class AddUserComponent {
   constructor(private firestore: Firestore) {}
   hide = true;
-
+  formValid = false;
+  placeholderEmail: string = 'Correo';
+  placeholderPassword: string = 'Contraseña';
+  placeholderName: string = 'Nombre';
+  placeholderLastname: string = 'Apellido';
   formBuilder = inject(FormBuilder);
 
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(20)],
+    ],
   });
 
+  ngOnInit() {
+    this.form.statusChanges.subscribe((status) => {
+      this.formValid = status === 'VALID';
+    });
+  }
   addData(form: UserForm) {
     const collectionInstance = collection(this.firestore, 'users');
     addDoc(collectionInstance, form)
@@ -37,5 +49,24 @@ export class AddUserComponent {
         });
         console.log(error.message);
       });
+  }
+
+  updatePlaceholders(): void {
+    this.placeholderEmail = this.form.get('email')?.hasError('required')
+      ? 'Correo es obligatorio'
+      : 'Correo';
+    this.placeholderPassword = this.form.get('password')?.hasError('required')
+      ? 'Contraseña es obligatoria'
+      : 'Contraseña';
+    this.placeholderName =
+      this.form.get('name')?.hasError('required') &&
+      this.form.get('name')?.touched
+        ? 'Nombre es obligatorio'
+        : 'Nombre';
+    this.placeholderLastname =
+      this.form.get('lastName')?.hasError('required') &&
+      this.form.get('lastName')?.touched
+        ? 'Apellido es obligatorio'
+        : 'Apellido';
   }
 }

@@ -11,7 +11,12 @@
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
           matInput
           formControlName="name"
-          placeholder="Nombre"
+          [ngClass]="{
+            'input-error':
+              form.get('name')?.hasError('required') &&
+              form.get('name')?.touched
+          }"
+          [placeholder]="placeholderName"
           required
         />
       </div>
@@ -20,7 +25,12 @@
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
           matInput
           formControlName="lastName"
-          placeholder="Apellido"
+          [ngClass]="{
+            'input-error':
+              form.get('lastName')?.hasError('required') &&
+              form.get('lastName')?.touched
+          }"
+          [placeholder]="placeholderLastname"
           required
         />
       </div>
@@ -29,7 +39,12 @@
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
           matInput
           formControlName="email"
-          placeholder="Correo"
+          [ngClass]="{
+            'input-error':
+              form.get('email')?.hasError('required') &&
+              form.get('email')?.touched
+          }"
+          [placeholder]="placeholderEmail"
           required
         />
       </div>
@@ -39,7 +54,12 @@
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
           type="password"
           formControlName="password"
-          placeholder="Contraseña"
+          [ngClass]="{
+            'input-error':
+              form.get('password')?.hasError('required') &&
+              form.get('password')?.touched
+          }"
+          [placeholder]="placeholderPassword"
           required
         />
       </div>
@@ -48,6 +68,8 @@
         <button
           class="bg-[#FF416C] w-full py-2 rounded-md text-white font-bold cursor-pointer hover:bg-[#c7123c]"
           type="submit"
+          [disabled]="!formValid"
+          [ngClass]="{ 'disabled-button': !formValid }"
         >
           Agregar
         </button>
