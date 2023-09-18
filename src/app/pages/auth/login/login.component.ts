@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   hide = true;
+  placeholderEmail: string = 'Correo';
+  placeholderPassword: string = 'Contraseña';
   formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private _router = inject(Router);
@@ -30,7 +32,10 @@ export class LoginComponent {
   });
 
   async logIn(): Promise<void> {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.updatePlaceholders();
+      return;
+    }
     const credential: Credential = {
       email: this.form.value.email || '',
       password: this.form.value.password || '',
@@ -54,5 +59,13 @@ export class LoginComponent {
       });
       console.log(error);
     }
+  }
+  updatePlaceholders(): void {
+    this.placeholderEmail = this.form.get('email')?.hasError('required')
+      ? 'Correo es obligatorio'
+      : 'Correo';
+    this.placeholderPassword = this.form.get('password')?.hasError('required')
+      ? 'Contraseña es obligatoria'
+      : 'Contraseña';
   }
 }

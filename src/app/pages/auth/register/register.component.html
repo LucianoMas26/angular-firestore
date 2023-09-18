@@ -17,8 +17,8 @@
     </div>
     <form
       [formGroup]="form"
-      (ngSubmit)="[addData(form.value), signUp()]"
-      class="lg:w-1/2 bg-gray-100 p-8 flex flex-col text-center justify-center items-center lg:rounded-r-xl rounded-xl shadow-[0_35px_35px_rgba(0,0,0,0.25)] w-[70%]"
+      (ngSubmit)="[signUp()]"
+      class="lg:w-1/2 bg-gray-100 p-8 flex flex-col text-center justify-center items-center rounded-xl lg:rounded-r-xl lg:rounded-l-none shadow-[0_35px_35px_rgba(0,0,0,0.25)] w-[70%]"
     >
       <h2 class="sm:text-3xl text-2xl font-black mb-6">Cree una cuenta</h2>
       <div class="gap-2 md:flex">
@@ -28,7 +28,12 @@
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
               matInput
               formControlName="name"
-              placeholder="Nombre"
+              [ngClass]="{
+                'input-error':
+                  form.get('name')?.hasError('required') &&
+                  form.get('name')?.touched
+              }"
+              [placeholder]="placeholderName"
               required
             />
           </div>
@@ -37,7 +42,12 @@
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
               matInput
               formControlName="lastName"
-              placeholder="Apellido"
+              [ngClass]="{
+                'input-error':
+                  form.get('lastName')?.hasError('required') &&
+                  form.get('lastName')?.touched
+              }"
+              [placeholder]="placeholderLastname"
               required
             />
           </div>
@@ -48,7 +58,12 @@
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
               matInput
               formControlName="email"
-              placeholder="Correo"
+              [ngClass]="{
+                'input-error':
+                  form.get('email')?.hasError('required') &&
+                  form.get('email')?.touched
+              }"
+              [placeholder]="placeholderEmail"
               required
             />
           </div>
@@ -58,7 +73,12 @@
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-[#FF416C]"
               type="password"
               formControlName="password"
-              placeholder="Contraseña"
+              [ngClass]="{
+                'input-error':
+                  form.get('password')?.hasError('required') &&
+                  form.get('password')?.touched
+              }"
+              [placeholder]="placeholderPassword"
               required
             />
           </div>

@@ -6,6 +6,7 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -51,5 +52,23 @@ export class UserService {
           console.log(error);
         }
       });
+  }
+  getUserById(userId: string): Observable<any> {
+    const docInstance = doc(this.firestore, 'users', userId);
+    return new Observable((observer) => {
+      getDoc(docInstance)
+        .then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const userData = docSnapshot.data();
+            observer.next(userData);
+          } else {
+            observer.next(null);
+          }
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 }
