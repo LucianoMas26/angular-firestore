@@ -15,11 +15,19 @@ export class UpdateComponent {
   userService = inject(UserService);
   id: string | null = null;
   formBuilder = inject(FormBuilder);
+  formValid = false;
+  placeholderEmail: string = 'Correo';
+  placeholderPassword: string = 'Contraseña';
+  placeholderName: string = 'Nombre';
+  placeholderLastname: string = 'Apellido';
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(20)],
+    ],
   });
 
   private getUserIdFromUrl(): string | null {
@@ -40,6 +48,9 @@ export class UpdateComponent {
         }
       });
     }
+    this.form.statusChanges.subscribe((status) => {
+      this.formValid = status === 'VALID';
+    });
   }
 
   updateData() {
@@ -68,5 +79,24 @@ export class UpdateComponent {
     } else {
       console.error('ID de usuario no válido');
     }
+  }
+
+  updatePlaceholders(): void {
+    this.placeholderEmail = this.form.get('email')?.hasError('required')
+      ? 'Correo es obligatorio'
+      : 'Correo';
+    this.placeholderPassword = this.form.get('password')?.hasError('required')
+      ? 'Contraseña es obligatoria'
+      : 'Contraseña';
+    this.placeholderName =
+      this.form.get('name')?.hasError('required') &&
+      this.form.get('name')?.touched
+        ? 'Nombre es obligatorio'
+        : 'Nombre';
+    this.placeholderLastname =
+      this.form.get('lastName')?.hasError('required') &&
+      this.form.get('lastName')?.touched
+        ? 'Apellido es obligatorio'
+        : 'Apellido';
   }
 }
