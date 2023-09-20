@@ -31,7 +31,21 @@ export class UserService {
     this.userData = collectionData(collectionInstance, { idField: 'id' });
   }
 
-  deleteData(id: string) {
+  async deleteData(id: string, showConfirmation: boolean = true) {
+    if (showConfirmation) {
+      const result = await Swal.fire({
+        title: 'Confirmar Eliminación',
+        text: '¿Estás seguro de que deseas eliminar este usuario?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, Eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if (!result.isConfirmed) {
+        return;
+      }
+    }
     const docInstance = doc(this.firestore, 'users', id);
     deleteDoc(docInstance)
       .then(() => {
@@ -43,16 +57,15 @@ export class UserService {
         });
       })
       .catch((error) => {
-        {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Parece que algo salió mal!',
-          });
-          console.log(error);
-        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Parece que algo salió mal!',
+        });
+        console.log(error);
       });
   }
+
   getUserById(userId: string): Observable<any> {
     const docInstance = doc(this.firestore, 'users', userId);
     return new Observable((observer) => {
